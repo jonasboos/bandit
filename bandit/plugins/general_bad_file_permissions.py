@@ -66,9 +66,7 @@ from bandit.core import test_properties as test
 # Mapping of stat module constant names to their integer values.
 # Only includes flags that are relevant to file permission checks.
 _STAT_CONSTANTS = {
-    name: getattr(stat, name)
-    for name in dir(stat)
-    if name.startswith("S_I")
+    name: getattr(stat, name) for name in dir(stat) if name.startswith("S_I")
 }
 
 
