@@ -81,8 +81,13 @@ def request_with_no_cert_validation(context):
     # Check instance method calls: session.get, client.get, etc.
     # When requests/httpx is imported and an HTTP verb is called with
     # verify=False on any object, it's likely a Session/Client method.
-    if context.call_function_name in HTTP_VERBS and context.check_call_arg_value("verify", "False"):
-        if context.is_module_imported_exact("requests") or context.is_module_imported_exact("httpx"):
+    if (
+        context.call_function_name in HTTP_VERBS
+        and context.check_call_arg_value("verify", "False")
+    ):
+        if context.is_module_imported_exact(
+            "requests"
+        ) or context.is_module_imported_exact("httpx"):
             return bandit.Issue(
                 severity=bandit.HIGH,
                 confidence=bandit.MEDIUM,
